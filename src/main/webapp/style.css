@@ -1,0 +1,25 @@
+*{
+    font-family: arial;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    background-color: aquamarine;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+nav{
+    background-color: teal;
+}
+nav a{
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    color:white;
+}
+nav a:hover{
+    background-color: darkcyan;
+    color:aquamarine;
+}

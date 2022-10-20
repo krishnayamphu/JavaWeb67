@@ -7,8 +7,8 @@
 <body>
 <%@include file="header.jsp"%>
 <%@include file="nav.jsp"%>
-
-<h2>Hello World!</h2>
+<h2>Welcome to Web Tutorials</h2>
 <p>Welcome to Java Web Application.</p>
+<a href="">Let's Get Started</a>
 </body>
 </html>
