@@ -8,11 +8,14 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet(name = "TodoController", value = "/todo")
 public class TodoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Todo> items=TodoDao.getTodoItems();
+        request.setAttribute("items",items);
         request.getRequestDispatcher("todo/index.jsp")
                 .forward(request,response);
     }

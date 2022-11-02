@@ -1,3 +1,5 @@
+<%@ page import="com.ky.models.Todo" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,6 +13,16 @@
         <button type="submit">Add</button>
     </div>
 </form>
+<ul>
+    <%
+        ArrayList<Todo> items= (ArrayList<Todo>) request.getAttribute("items");
+        for(Todo item:items){
+    %>
+    <li><input type="checkbox"><%= item.getItem() %> <button>Remove</button></li>
+    <%
+        }
+    %>
+</ul>
 
 </body>
 </html>

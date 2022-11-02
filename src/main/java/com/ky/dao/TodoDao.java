@@ -15,7 +15,7 @@ public class TodoDao {
         ArrayList<Todo> todoList = new ArrayList<>();
         try {
             cn = ConnectDB.connect();
-            String sql = "SELECT * FROM users";
+            String sql = "SELECT * FROM todo";
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
