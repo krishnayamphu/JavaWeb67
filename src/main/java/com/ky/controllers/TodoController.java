@@ -1,5 +1,8 @@
 package com.ky.controllers;
 
+import com.ky.dao.TodoDao;
+import com.ky.models.Todo;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -20,6 +23,8 @@ public class TodoController extends HttpServlet {
         PrintWriter pw=response.getWriter();
 
         String item=request.getParameter("todo_item");
-        pw.print(item);
+        Todo todo=new Todo(item,false);
+        TodoDao.addItem(todo);
+        response.sendRedirect("todo");
     }
 }
