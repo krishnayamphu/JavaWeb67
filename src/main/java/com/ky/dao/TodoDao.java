@@ -45,4 +45,17 @@ public class TodoDao {
             System.err.println(e);
         }
     }
+
+    public static void removeItem(int id) {
+        try {
+            cn = ConnectDB.connect();
+            String sql = "DELETE FROM todo WHERE id=?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            cn.close();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
 }

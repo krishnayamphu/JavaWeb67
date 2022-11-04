@@ -18,7 +18,13 @@
         ArrayList<Todo> items= (ArrayList<Todo>) request.getAttribute("items");
         for(Todo item:items){
     %>
-    <li><input type="checkbox"><%= item.getItem() %> <button>Remove</button></li>
+    <li>
+        <input type="checkbox"><%= item.getItem() %>
+        <form action="todo-del" method="post">
+            <input type="hidden" value="<%= item.getId() %>" name="id">
+            <button>Remove</button>
+        </form>
+    </li>
     <%
         }
     %>
