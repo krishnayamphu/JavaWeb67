@@ -19,7 +19,10 @@
         for(Todo item:items){
     %>
     <li>
-        <input type="checkbox"><%= item.getItem() %>
+        <input type="checkbox" id="ckb<%= item.getId() %>" onclick="validate(<%= item.getId() %>)" <%= item.isStatus()?"checked":"" %>>
+        <span id="lblitem<%= item.getId() %>"  <%= item.isStatus()?"style='text-decoration:line-through'":"" %> >
+            <%= item.getItem() %>
+        </span>
         <form action="todo-del" method="post">
             <input type="hidden" value="<%= item.getId() %>" name="id">
             <button>Remove</button>
@@ -29,6 +32,26 @@
         }
     %>
 </ul>
+
+<script>
+    function test(){
+        console.log("hi");
+    }
+    function validate(id) {
+        let name='ckb'+id;
+        let lblname='lblitem'+id;
+        if (document.getElementById(name).checked) {
+            console.log("checked");
+            document.getElementById(lblname).style.textDecoration='line-through'
+        } else {
+            console.log("un checked");
+            document.getElementById(lblname).style.textDecoration='none'
+        }
+    }
+
+console.log("its working")
+
+</script>
 
 </body>
 </html>
