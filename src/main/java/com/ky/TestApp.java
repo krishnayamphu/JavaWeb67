@@ -7,10 +7,13 @@ import java.util.ArrayList;
 
 public class TestApp {
     public static void main(String[] args) {
-        ArrayList<Todo> items=new ArrayList<>();
-        items=TodoDao.getTodoItems();
-        for(Todo item:items){
-            System.out.println(item.getItem());
-        }
+        int id= 1;
+        boolean status= false;
+
+        Todo item=new Todo();
+        item.setId(id);
+        item.setStatus(status);
+        TodoDao.updateStatus(item);
+
     }
 }

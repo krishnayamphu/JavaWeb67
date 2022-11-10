@@ -4,53 +4,132 @@
 <html>
 <head>
     <title>Todo Application</title>
+    <style>
+        * {
+            font-family: arial;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color:#333;
+        }
+        section{
+            background-color: aquamarine;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h3{
+            padding-bottom: 15px;
+        }
+        form .input-group{
+            background-color: aliceblue;
+            padding: 5px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+        }
+        form input[type='text']{
+            border-radius: 30px 0 0 30px;
+            border: none;
+            padding: 5px 15px;
+            margin: 0;
+        }
+        form .btn-submit{
+            border-radius: 0 30px 30px 0;
+            background-color: aqua;
+            color: white;
+            margin: 0;
+            border: none;
+            padding: 5px 15px;
+        }
+        form button{
+            border: none;
+            padding: 3px 10px;
+            border-radius: 2px;
+            background-color: #de4c4c;
+            color: white;
+        }
+
+        ul{
+            list-style: none;
+        }
+        ul li{
+            display: flex;
+            padding: 8px 0px;
+            border-bottom: 1px solid #ffffff;
+            align-items: center;
+        }
+        ul li:last-child{
+            border-bottom: none;
+        }
+        ul li span{
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+    </style>
 </head>
 <body>
-<h3>Todo List</h3>
-<form action="todo" method="post">
-    <div class="input-group">
-        <input type="text" placeholder="Add Item" name="todo_item">
-        <button type="submit">Add</button>
-    </div>
-</form>
-<ul>
-    <%
-        ArrayList<Todo> items= (ArrayList<Todo>) request.getAttribute("items");
-        for(Todo item:items){
-    %>
-    <li>
-        <input type="checkbox" id="ckb<%= item.getId() %>" onclick="validate(<%= item.getId() %>)" <%= item.isStatus()?"checked":"" %>>
-        <span id="lblitem<%= item.getId() %>"  <%= item.isStatus()?"style='text-decoration:line-through'":"" %> >
+<section>
+    <h3>Todo List</h3>
+    <form action="todo" method="post">
+        <div class="input-group">
+            <input type="text" placeholder="Add Item" name="todo_item">
+            <button class="btn-submit" type="submit">Add</button>
+        </div>
+    </form>
+    <ul>
+        <%
+            ArrayList<Todo> items = (ArrayList<Todo>) request.getAttribute("items");
+            for (Todo item : items) {
+        %>
+        <li>
+            <input type="checkbox" id="ckb<%= item.getId() %>"
+                   onchange="validate(<%= item.getId() %>)" <%= item.isStatus()?"checked":"" %>>
+            <span id="lblitem<%= item.getId() %>"  <%= item.isStatus() ? "style='text-decoration:line-through'" : "" %> >
             <%= item.getItem() %>
         </span>
-        <form action="todo-del" method="post">
-            <input type="hidden" value="<%= item.getId() %>" name="id">
-            <button>Remove</button>
-        </form>
-    </li>
-    <%
-        }
-    %>
-</ul>
-
+            <form action="todo-del" method="post">
+                <input type="hidden" value="<%= item.getId() %>" name="id">
+                <button> X </button>
+            </form>
+        </li>
+        <%
+            }
+        %>
+    </ul>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
-    function test(){
-        console.log("hi");
-    }
+
     function validate(id) {
-        let name='ckb'+id;
-        let lblname='lblitem'+id;
+        let name = 'ckb' + id;
+        let lblname = 'lblitem' + id;
         if (document.getElementById(name).checked) {
             console.log("checked");
-            document.getElementById(lblname).style.textDecoration='line-through'
+            mydata = "id=" + id + "&status=true";
+            postData(mydata)
+            document.getElementById(lblname).style.textDecoration = 'line-through'
         } else {
             console.log("un checked");
-            document.getElementById(lblname).style.textDecoration='none'
+            mydata = "id=" + id + "&status=false";
+            postData(mydata)
+            document.getElementById(lblname).style.textDecoration = 'none'
         }
     }
 
-console.log("its working")
-
+    function postData(mydata) {
+        $.ajax({
+            url: "todo-edit",
+            type: 'POST',
+            data: mydata,
+            success: function (data) {
+                console.log(data)
+            },
+        })
+    }
 </script>
 
 </body>

@@ -46,6 +46,20 @@ public class TodoDao {
         }
     }
 
+    public static void updateStatus(Todo item) {
+        try {
+            cn = ConnectDB.connect();
+            String sql = "UPDATE todo SET status=? WHERE id=?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setBoolean(1, item.isStatus());
+            ps.setInt(2, item.getId());
+            ps.executeUpdate();
+            cn.close();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
     public static void removeItem(int id) {
         try {
             cn = ConnectDB.connect();
