@@ -8,6 +8,10 @@
         <param-name>contact</param-name>
         <param-value>01-5547107</param-value>
     </context-param>
+    <filter>
+        <filter-name>TestFilter</filter-name>
+        <filter-class>com.ky.filters.TestFilter</filter-class>
+    </filter>
 
     <servlet>
         <servlet-name>cname</servlet-name>
@@ -68,4 +72,8 @@
     <servlet-name>FormServlet</servlet-name>
     <url-pattern>/form</url-pattern>
   </servlet-mapping>
+    <filter-mapping>
+        <filter-name>TestFilter</filter-name>
+        <url-pattern>/test</url-pattern>
+    </filter-mapping>
 </web-app>
