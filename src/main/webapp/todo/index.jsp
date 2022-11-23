@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.ky.models.Todo" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,9 +11,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            color:#333;
+            color: #333;
         }
-        section{
+
+        section {
             background-color: aquamarine;
             height: 100%;
             display: flex;
@@ -20,22 +22,26 @@
             justify-content: center;
             align-items: center;
         }
-        h3{
+
+        h3 {
             padding-bottom: 15px;
         }
-        form .input-group{
+
+        form .input-group {
             background-color: aliceblue;
             padding: 5px;
             border-radius: 30px;
             margin-bottom: 30px;
         }
-        form input[type='text']{
+
+        form input[type='text'] {
             border-radius: 30px 0 0 30px;
             border: none;
             padding: 5px 15px;
             margin: 0;
         }
-        form .btn-submit{
+
+        form .btn-submit {
             border-radius: 0 30px 30px 0;
             background-color: aqua;
             color: white;
@@ -43,7 +49,8 @@
             border: none;
             padding: 5px 15px;
         }
-        form button{
+
+        form button {
             border: none;
             padding: 3px 10px;
             border-radius: 2px;
@@ -51,19 +58,22 @@
             color: white;
         }
 
-        ul{
+        ul {
             list-style: none;
         }
-        ul li{
+
+        ul li {
             display: flex;
             padding: 8px 0px;
             border-bottom: 1px solid #ffffff;
             align-items: center;
         }
-        ul li:last-child{
+
+        ul li:last-child {
             border-bottom: none;
         }
-        ul li span{
+
+        ul li span {
             display: inline-block;
             margin: 0 10px;
         }
@@ -80,24 +90,19 @@
         </div>
     </form>
     <ul>
-        <%
-            ArrayList<Todo> items = (ArrayList<Todo>) request.getAttribute("items");
-            for (Todo item : items) {
-        %>
-        <li>
-            <input type="checkbox" id="ckb<%= item.getId() %>"
-                   onchange="validate(<%= item.getId() %>)" <%= item.isStatus()?"checked":"" %>>
-            <span id="lblitem<%= item.getId() %>"  <%= item.isStatus() ? "style='text-decoration:line-through'" : "" %> >
-            <%= item.getItem() %>
-        </span>
-            <form action="todo-del" method="post">
-                <input type="hidden" value="<%= item.getId() %>" name="id">
-                <button> X </button>
-            </form>
-        </li>
-        <%
-            }
-        %>
+        <c:forEach var="item" items="${items}">
+            <li>
+                <input type="checkbox" id="ckb${item.id}"
+                       onchange="validate(${item.id})" ${item.status?"checked" : ""}>
+                <span id="lblitem${item.id}" ${item.status?"style='text-decoration:line-through'" : ""}>
+                        ${item.item}
+                </span>
+                <form action="todo-del" method="post">
+                    <input type="hidden" value="${item.id}" name="id">
+                    <button> X </button>
+                </form>
+            </li>
+        </c:forEach>
     </ul>
 </section>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
